@@ -1,0 +1,165 @@
+<div class="wrapper">
+    <!--<app-side></app-side>-->
+    <div id="content">
+        <app-nav></app-nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Listado de Proveedores</h5>
+                        </div>
+                        <div class="card-body">
+                            <div *ngIf="categoria === 'vacio'">
+                                <div class="alert alert-danger">
+                                    <strong>Alerta!</strong> Categoría sin Proveedores.
+                                </div>
+                            </div>
+                            <div *ngIf="categoria !== 'vacio'">
+                                <h6 class="card-subtitle mb-2 text-muted">Categoría: {{categoria}}</h6>
+                                <div class="row">
+                                    <div class="col-sm-3" style="
+                                    border-style: none solid none none;
+                                    border-width: 1px;
+                                ">
+                                        <h5>Filtrar por:</h5>
+                                        <mat-label>Ciudad: </mat-label>
+                                        <mat-form-field>
+                                            <mat-select (selectionChange)="filtroCiudad(c.value)" #c
+                                                [formControl]="ciudadField">
+                                                <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.value">
+                                                    {{ciudad.texto}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field><br>
+                                        <mat-label>Sector: </mat-label>
+                                        <mat-form-field>
+                                            <mat-select (selectionChange)="filtroSector(s.value)" #s
+                                                [formControl]="sectorField">
+                                                <mat-option *ngFor="let ciudad of sectores" [value]="ciudad.value">
+                                                    {{ciudad.texto}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field><br>
+                                        <mat-label>Barrio: </mat-label>
+                                        <mat-form-field>
+                                            <mat-select (selectionChange)="filtroBarrio(b.value)" #b
+                                                [formControl]="barrioField">
+                                                <mat-option *ngFor="let ciudad of barrios" [value]="ciudad.value">
+                                                    {{ciudad.texto}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <section *ngIf="textoBuscar != ''">
+                                            <div class="example-button-container">
+                                                Borrar filtros
+                                                <button mat-fab color="warn" (click)="borrar()"
+                                                    aria-label="Example icon button with a delete icon">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="row">
+                                            <div class="col-sm-4"
+                                                *ngFor="let proveedor of pro | filtro:textoBuscar : columna | paginate:page_size:page_number">
+                                                <div class="card card-profile">
+                                                    <div class="card-avatar">
+                                                        <img class="img" src="{{SRC}}{{proveedor.imagen}}" />
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h6 class="card-category text-gray">{{proveedor.alias}}</h6>
+                                                        <h4 class="card-title">{{proveedor.ciudad}}</h4>
+                                                        <div class="card-description">
+                                                            <div *ngIf="proveedor.calificacion > 0">
+                                                                <p><i *ngFor="let n of estrellas(proveedor.calificacion)"
+                                                                        class="fa fa-star" style="color: orange;"></i>
+                                                                </p>
+                                                            </div>
+                                                            <div *ngIf="proveedor.calificacion == 0">
+                                                                <p>Sin calificación</p>
+                                                            </div>
+                                                        </div>
+                                                        <p>
+                                                            <a data-toggle="collapse"
+                                                                href="#collapseExample{{proveedor.id}}">
+                                                                Ver descripción
+                                                            </a>
+                                                        </p>
+                                                        <div class="collapse" id="collapseExample{{proveedor.id}}">
+                                                            <div class="card card-body">
+                                                                {{proveedor.descripcion}}
+                                                            </div>
+                                                        </div>
+                                                        <button *ngIf="sesion != null" (click)="contratar(proveedor)"
+                                                            class="btn btn-primary btn-lg btn-block">Contratar</button>
+                                                        <button *ngIf="sesion == null"
+                                                            class="btn btn-primary btn-lg btn-block"
+                                                            (click)="openModal(template,proveedor)">Contratar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <mat-paginator [length]="pro.length" [pageSize]="page_size"
+                                            (page)="pageEvent($event)">
+                                        </mat-paginator>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #template>
+    <div class="modal-body">
+        <div class="card card-profile" *ngFor="let pro of proveedor">
+            <div class="card-avatar">
+                <img class="img" src="{{SRC}}{{pro.imagen}}" />
+            </div>
+            <div class="card-body">
+                <!--<h6 class="card-category text-gray">CEO / Co-Founder</h6>-->
+                <h4 class="card-title">{{pro.alias}}</h4>
+                <p class="card-description">
+                    {{pro.descripcion}}
+                </p>
+                <p><strong>Hora de atención: </strong> {{pro.hora_min}} a {{pro.hora_max}}</p>
+                <p><strong>Precio referencial: </strong> {{pro.precio}}</p>
+                <p><strong>Dirección: </strong> {{pro.direccion}}</p>
+                <div class="alert alert-danger" role="alert">
+                    <a href="#" class="alert-link">Inicie sesión </a>para poder contratar el
+                    servicio.!
+                </div>
+            </div>
+        </div>
+        <!--<div class="card" *ngFor="let pro of proveedor">
+            <img src="{{SRC}}{{pro.imagen}}" class="img-avatar" alt="Bootstrap 4 Cards">
+            <div class="card-body">
+                <h5 class="card-title">{{pro.alias}}</h5>
+                <p class="card-text">{{pro.descripcion}}</p>
+                <p><strong>Hora de atención: </strong> {{pro.hora_min}} a {{pro.hora_max}}</p>
+                <p><strong>Precio referencial: </strong> {{pro.precio}}</p>
+                <p><strong>Dirección: </strong> {{pro.direccion}}</p>
+            </div>
+            <div class="card-footer">
+                <div class="alert alert-danger" role="alert">
+                    <a href="#" class="alert-link">Inicie sesión </a>para poder contratar el
+                    servicio.!
+                </div>
+            </div>
+        </div>-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-info"
+            (click)="modalRef.hide()">Cerrar</button>
+    </div>
+</ng-template>

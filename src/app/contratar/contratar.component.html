@@ -1,0 +1,223 @@
+<div class="wrapper">
+  <!--<app-side></app-side>-->
+  <div id="content">
+    <app-nav></app-nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5>Contratar Servicio</h5>
+            </div>
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-md-6" style="text-align: center;" *ngFor="let pro of proveedor">
+                  <img src="{{SRC}}{{pro.imagen}}" class="img-fluid">
+                </div>
+                <div class="col-md-6" *ngFor="let pro of proveedor">
+                  <h3 class="card-title">{{pro.descripcion}}</h3>
+                  <h4>Información del proveedor</h4>
+                  <h6>Nombre:</h6>
+                  <p class="card-text">{{pro.alias}}</p>
+                  <h6>Dirección:</h6>
+                  <p class="card-text">{{pro.direccion}}</p>
+                  <h6>Horario:</h6>
+                  <p class="card-text">{{pro.hora_min}}-{{pro.hora_max}}</p>
+                  <h6>Calificación:</h6>
+                  <div *ngIf="pro.calificacion > 0">
+                    <i *ngFor="let n of estrellas(pro.calificacion)" class="fa fa-star" style="color: orange;"></i>
+                  </div>
+                  <div *ngIf="pro.calificacion == 0">
+                    <p>Sin calificación</p>
+                  </div>
+                  <h6 (click)="openModal(template)">Ver comentarios</h6>
+                </div>
+                <div class="col-md-12">
+                  <h4>Formulario para contratar servicio</h4>
+                </div>
+                <div class="col-md-6" *ngFor="let pro of proveedor">
+                  <form [formGroup]="contratarForm" (ngSubmit)="guardar()">
+                    <div class="form-group">
+                      <label><strong>Celular:</strong></label>
+                      <input type="tel" class="form-control" name="telefono" placeholder="Celular"
+                        formControlName="telefono" numbersOnly autocomplete="off" maxlength="10" minlength="10">
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="contratarForm.get('telefono').dirty || contratarForm.get('telefono').touched"
+                      [hidden]="!contratarForm.get('telefono').hasError('minlength') && !contratarForm.get('telefono').hasError('maxlength') && !contratarForm.get('telefono').hasError('required')">
+                      <ul>
+                        <li *ngIf="contratarForm.get('telefono').hasError('required')">Celular requerido.
+                        </li>
+                        <li
+                          *ngIf="contratarForm.get('telefono').hasError('minlength') || contratarForm.get('telefono').hasError('maxlength')">
+                          Celular no válido (max:10,min:10) números.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label><strong>Teléfono convencional:</strong></label>
+                      <input type="tel" class="form-control" name="convencional" placeholder="Teléfono convencional"
+                        formControlName="convencional" numbersOnly autocomplete="off" maxlength="7" minlength="7">
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="contratarForm.get('convencional').dirty || contratarForm.get('convencional').touched"
+                      [hidden]="!contratarForm.get('convencional').hasError('minlength') && !contratarForm.get('convencional').hasError('maxlength') && !contratarForm.get('convencional').hasError('required')">
+                      <ul>
+                        <li *ngIf="contratarForm.get('convencional').hasError('required')">Teléfono convencional
+                          requerido.
+                        </li>
+                        <li
+                          *ngIf="contratarForm.get('convencional').hasError('minlength') || contratarForm.get('convencional').hasError('maxlength')">
+                          Teléfono convencional no válido (max:7,min:7) números.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label><strong>Descripción del Servicio:</strong></label>
+                      <textarea type="text" class="form-control" name="descripcion"
+                        formControlName="descripcion"></textarea>
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="contratarForm.get('descripcion').hasError('required') && contratarForm.get('descripcion').touched">
+                      Descripción del servicio requerida
+                    </div>
+                    <div class="form-group">
+                      <label><strong>Forma de pago:</strong></label>
+                      <select type="text" class="form-control" name="forma" formControlName="forma" #f>
+                        <option value="1">Efectivo</option>
+                        <option value="2">Transacción</option>
+                      </select>
+                      <small *ngIf="f.value == 2">Banco: {{pro.banco}} - Número de cuenta: {{pro.cuenta}}</small>
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="contratarForm.get('forma').dirty || contratarForm.get('forma').touched"
+                      [hidden]="!contratarForm.get('forma').hasError('required')">
+                      <ul>
+                        <li *ngIf="contratarForm.get('forma').hasError('required')">Forma de pago requerida.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label><strong>Fecha de servicio:</strong></label>
+                      <input type="date" class="form-control" name="fecha" [min]="fecha | date:'yyyy-MM-dd'"
+                        formControlName="fecha">
+                    </div>
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="contratarForm.get('fecha').dirty || contratarForm.get('fecha').touched"
+                      [hidden]="!contratarForm.get('fecha').hasError('required')">
+                      <ul>
+                        <li *ngIf="contratarForm.get('fecha').hasError('required')">Fecha requerida.
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group">
+                      <label><strong>Horario de servicio &nbsp; </strong></label>
+                      <small>de {{pro.hora_min}} a
+                        {{pro.hora_max}}</small>
+                      <div class="row">
+                        <div class="col-6">
+                          <label>Hora</label>
+                          <input type="tel" id="hora" name="hora" class="form-control" formControlName="hora" required
+                            [min]="min_hora" [max]="max_hora" maxlength="2" minlength="2" numbersOnly>
+                          <div class="alert alert-danger" role="alert"
+                            *ngIf="contratarForm.get('hora').dirty || contratarForm.get('hora').touched"
+                            [hidden]="!contratarForm.get('hora').hasError('required') && !contratarForm.get('hora').hasError('min') && !contratarForm.get('hora').hasError('max')">
+                            <ul>
+                              <li *ngIf="contratarForm.get('hora').hasError('required')">Hora requerida.
+                              </li>
+                              <li
+                                *ngIf="contratarForm.get('hora').hasError('min') || contratarForm.get('hora').hasError('max')">
+                                La hora debe estar entre {{min_hora}} - {{max_hora}}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <label>Minutos</label>
+                          <select type="text" class="form-control" name="minutos" formControlName="minutos">
+                            <option value="00">:00</option>
+                            <option value="15">:15</option>
+                            <option value="30">:30</option>
+                            <option value="45">:45</option>
+                          </select>
+                          <div class="alert alert-danger" role="alert"
+                            *ngIf="contratarForm.get('minutos').dirty || contratarForm.get('minutos').touched"
+                            [hidden]="!contratarForm.get('minutos').hasError('required')">
+                            <ul>
+                              <li *ngIf="contratarForm.get('minutos').hasError('required')">Minutos requeridos.
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!--<div class="col-6">
+                          <label>Minutos</label>
+                          <input type="tel" id="minutos" name="minutos" class="form-control" formControlName="minutos"
+                            required [min]="1" [max]="59" maxlength="2" minlength="2" numbersOnly>
+                          <div class="alert alert-danger" role="alert"
+                            *ngIf="contratarForm.get('minutos').dirty || contratarForm.get('minutos').touched"
+                            [hidden]="!contratarForm.get('minutos').hasError('required') && !contratarForm.get('minutos').hasError('min') && !contratarForm.get('minutos').hasError('max')">
+                            <ul>
+                              <li *ngIf="contratarForm.get('minutos').hasError('required')">Minutos requeridos.
+                              </li>
+                              <li
+                                *ngIf="contratarForm.get('minutos').hasError('min') || contratarForm.get('minutos').hasError('max')">
+                                Los minutos debe estar entre 00 - 59
+                              </li>
+                            </ul>
+                          </div>
+                        </div>-->
+                      </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block">Contratar</button>
+                    <a (click)="onSelected(pro)" class="btn btn-danger btn-block text-white">Cancelar</a>
+                  </form>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+                    placeholder="Buscar dirección" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+                    #search>
+                  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" (mapClick)="crearMarcador($event)">
+                    <agm-marker [latitude]="lat" [longitude]="lng" [markerDraggable]="true"
+                      (dragEnd)="markerDragEnd($event)">
+                      <agm-info-window>
+                        <strong>InfoWindow content</strong>
+                      </agm-info-window>
+                    </agm-marker>
+                  </agm-map>
+                  <label><strong>Referencia:</strong></label>
+                  <textarea type="text" class="form-control" rows="3" #referencia></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Comentarios</h5>
+    </div>
+    <mat-card class="example-card" *ngFor="let pro of proveedor">
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let co of comentarios">
+            <mat-icon mat-list-icon>comment</mat-icon>
+            <div mat-line> {{co.comentarios}} </div>
+            <div mat-line> {{co.fecha}} </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-info waves-effect ml-auto" (click)="modalRef.hide()">Cerrar</button>
+  </div>
+</ng-template>

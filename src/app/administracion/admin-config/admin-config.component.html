@@ -1,0 +1,40 @@
+<app-menu></app-menu>
+<br>
+<div id="content">
+    <div class="container-fluid" *ngFor="let conf of configuraciones">
+        <h2>LandScape</h2>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <form [formGroup]="configForm" (ngSubmit)="guardar()">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Links Google Play</label>
+                        <input type="text" class="form-control" placeholder="Link App Android"
+                            value="{{conf.app_android}}" formControlName="app_android">
+                        <label for="exampleInputEmail1">Links App Store</label>
+                        <input type="text" class="form-control" placeholder="Link App Apple" value="{{conf.app_store}}"
+                            formControlName="app_store">
+                    </div>
+                    <hr>
+                    <h6>Seccion "Ser Socio"</h6>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Titulo</label>
+                        <input type="text" class="form-control" placeholder="Titulo" value="{{conf.titulo}}"
+                            formControlName="titulo">
+                        <label for="exampleInputEmail1">Sub-Titulo 1 </label>
+                        <input type="text" class="form-control" placeholder="Sub-Titulo 1" value="{{conf.sub_titulo_1}}"
+                            formControlName="sub_titulo_1">
+                        <label for="exampleInputEmail1">Sub-Titulo 2 </label>
+                        <input type="text" class="form-control" placeholder="Sub-Titulo 2" value="{{conf.sub_titulo_2}}"
+                            formControlName="sub_titulo_2">
+                        <label for="exampleInputEmail1">Párrafo</label>
+                        <input type="text" class="form-control" placeholder="Parrafo" value="{{conf.parrafo}}"
+                            formControlName="parrafo">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Actualizar</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

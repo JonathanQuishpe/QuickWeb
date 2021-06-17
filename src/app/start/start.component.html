@@ -1,0 +1,417 @@
+<div class="wrapper">
+  <!--<app-side></app-side>-->
+  <div id="content">
+    <app-nav></app-nav>
+    <div class="container-fluid" *ngFor="let cnf of config">
+      <!--<div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Quick Service</h1>
+          <p>Te permite contratar servicios para tu hogar de manera fácil y rápida. Para poder formar parte de
+            nuestra gran comunidad tan solo registrate en nuestro sistema y disfruta de todos nuestros servicios.
+          </p>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Limpieza</h2>
+            <p>Necesitas personas que realicen tareas de limpieza por ti?. Este módulo te puede interesar, clic
+              en el ícono para ver la lista de proveedores.</p>
+            <p><a class="btn btn-secondary text-white" (click)="onSelected(1)">Ver más »</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Plomería</h2>
+            <p>Necesitas personas que realicen trabajos de plomería por ti?. Este módulo te puede interesar, clic
+              en el ícono para ver la lista de proveedores. </p>
+            <p><a class="btn btn-secondary text-white" (click)="onSelected(2)">Ver más »</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Electricidad</h2>
+            <p>Necesitas personas que realicen trabajos de electricidad por ti?. Este módulo te puede interesar, clic
+              en el ícono para ver la lista de proveedores.</p>
+            <p><a class="btn btn-secondary text-white" (click)="onSelected(3)">Ver más »</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="jumbotron">
+        <h1 class="display-4">Prestar Servicios</h1>
+        <p class="lead">Quieres ser uno de nuestros proveedores?. Te interesa generar más ingresos?.
+          Ahora puedes ser parte de la lista de socios proveedores de Quick Service. Te preguntas cuales son
+          los pasos a seguir, no pierdas tiempo y da clic en el botón "Más información".
+        </p>
+        <a class="btn btn-info btn-lg text-white" (click)="openModal(info)">Más información</a>
+      </div>-->
+      <section id="intro" class="wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;">
+        <!--<div class="intro-content">
+          <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-4 parte1  col-xs-12 col-sm-12" style="font-weight: normal;" align="left">
+              <font class="color_plataforma description4" weight="normal">
+                <h2> El mundo ha evolucionado </h2>
+                Tu tiempo es lo más importante para nosotros.<br><br>
+                <font style="margin-top:10px;"> Servicios Integrales</font><br>
+                para ti y tu hogar,al alcance de tu mano a través de nuestra APP.
+              </font>
+              <br>
+            </div>
+            <div class="col-lg-6"></div>
+          </div>
+        </div>-->
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <div class="section-header wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
+            <h2>Busca nuestra APP y encuentra tu servicio</h2>
+
+          </div>
+          <div class="row">
+            <div class="col-lg-12 about-img ">
+
+              <p style="font-size:20px;" class="text-center">
+                Solicitalo de manera inmediata o programala según tu horario.
+              </p>
+
+            </div>
+
+            <div class="col-lg-12 content">
+              <div class="row" style="margin-bottom:40px;">
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono01.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInRight" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono02.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono03.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+                <div class="col-lg-2  text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono04.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono05.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInRight" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono06.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+                <div class="col-lg-12 text-center">
+                  <div style="background-color:#e0eff9;width:100%;height:2px;margin-top:30px;"> </div>
+                </div>
+
+              </div>
+
+
+              <div class="row" style="margin-top:40px;">
+
+                <div class="col-lg-2  text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono07.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono08.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInRight" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono09.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+                <div class="col-lg-2  text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono10.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInLeft" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono11.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-2 text-center col-4">
+                  <div class="box wow fadeInRight" data-wow-delay="0.2s"
+                    style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInRight;">
+                    <div class="text-center" style="margin-bottom:10px;"><img src="assets/iconos/icono12.png"
+                        class="imagen_serv" alt=""></div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="call-to-action" class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 text-center text-right" style="margin-top:50px;">
+              <h2 class="cta-title">Descarga nuestra app</h2>
+            </div>
+            <div class="col-lg-6 cta-btn-container text-center">
+              <div class="row">
+                <div class="col-lg-12">
+                  <a target="_blank" href="{{cnf.app_android}}">
+                    <img src="assets/img/android.png" style="height:60px;" alt="">
+                  </a>
+                </div>
+                <div class="col-lg-12" style="margin-top:20px;">
+                  <img src="assets/img/appstore.png" style="height:64px;" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="wow fadeInUp"
+        style="margin-top: 20px; visibility: visible; animation-name: fadeInUp;">
+        <div class="container">
+
+          <div class="section-header">
+            <h2 class="cta-title" style="font-size: 40px;">Haz las cosas de manera diferente</h2>
+            <font size="5">Nuestro día a día está lleno de desafíos</font><br>
+            <font size="5">Cuando contamos con una solución rápida,</font>
+            <font size="6">&nbsp;todo se vuelve POSIBLE</font>
+          </div>
+
+          <div class="row  wow  fadeInLeft" style="margin-top: 30px; visibility: visible; animation-name: fadeInLeft;"
+            id="servicios">
+            <div class="col-lg-6 content">
+              <div class="row">
+                <div class="col-lg-12">
+                  <font size="7">Servicios 100%.</font>
+                </div>
+                <div class="col-lg-12">
+                  <font size="4">Hacemos posible que tu diario vivir sea más</font>
+                </div>
+                <div class="col-lg-12">
+                  <font size="6">SIMPLE.</font>
+                </div>
+              </div>
+              <div class="row" style="margin-top:20px;">
+
+                <div class="col-3 " align="right">
+                  <img src="assets/img/prof_ico1.png" alt="">
+                </div>
+                <div class="col-9">
+                  <font size="4">Disponemos de todas las herramientas o accesorios necesarios. </font>
+                </div>
+
+              </div>
+              <div class="row" style="margin-top:20px;">
+
+                <div class="col-3" align="right">
+                  <img src="assets/img/prof_ico2.png" alt="">
+                </div>
+                <div class="col-9">
+                  <font size="4">Hacemos la compra por ti de todos los insumos, repuestos o materiales necesarios y te
+                    los despachamos.</font>
+                </div>
+
+              </div>
+              <div class="row" style="margin-top:20px;">
+
+                <div class="col-3" align="right">
+                  <img src="assets/img/prof_ico3.png" alt="">
+                </div>
+                <div class="col-9">
+                  <font size="4">Solicitas tu servicio a un precio base, que puede variar según tus necesidades.</font>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-lg-6 content" align="center">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div style="margin-top:120px;"><img src="assets/img/prof_ico5.png" alt="" class="imagen_posible2">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <div class="col-lg-12">
+                  <a class="text-center color_core" style="padding: 10px 10px 10px;margin-top:15px;font-size:13px;"
+                    href="/Home/comofunciona">Cómo funciona&nbsp;<span class="glyphicon glyphicon-share-alt"></span></a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <section id="socio">
+        <div class="container">
+          <div class="section-header">
+            <h2>{{cnf.titulo}}</h2>
+          </div>
+
+          <div class="row" style="margin-top:30px;">
+            <div class="col-lg-6 content">
+              <div class="row wow  fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;">
+                <div class="col-lg-12">
+                  <font size="7">{{cnf.sub_titulo_1}}</font>
+                </div>
+                <div class="col-lg-12" style="font-size:20px; font-weight:normal">
+                  {{cnf.sub_titulo_2}}
+                </div>
+                <div class="col-lg-12" style="margin-top:30px;">
+                  <font size="5">{{cnf.parrafo}}</font>
+                </div>
+                <div class="col-lg-12" style="margin-top:30px;">
+                  <button class="btn btn-primary btn-block" [routerLink]="['/afiliarse']">Afiliate</button>
+                </div>
+                <div class="col-lg-12" style="font-size:20px; font-weight:normal; margin-top:40px;">
+                  Aplica, te capacitaremos y certificaremos para que seas parte de ella.
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-lg-6 content wow  fadeInRight" align="center"
+              style="visibility: visible; animation-name: fadeInRight;">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div style="margin-top:5px;"><img src="assets/img/prof_ico6.png" alt="" class="imagen_posible3">
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <div class="col-lg-12">
+                  <a class="text-center color_core" style="padding: 10px 10px 10px;margin-top:15px;font-size:13px;"
+                    href="/Home/aplica">Conoce los Beneficios y Aplica&nbsp;<span
+                      class="glyphicon glyphicon-share-alt"></span></a>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row" style="margin-top:20px;">
+
+            <div class="col-lg-3 ">
+              <div class="box wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;">
+                <div class="text-center " style="font-size:18px;font-weight:bold;">
+                  INGRESOS
+                </div>
+                <hr id="raya">
+                <div class="icon" align="center"><img src="assets/img/socio_ico_1.png" alt=""></div>
+                <div style="margin-top:10px;">
+                  <p class="description text-center">Permanentes y pagados diariamente de acuerdo a tu trabajo.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 ">
+              <div class="box wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
+                <div class="text-center " style="font-size:18px;font-weight:bold;">
+                  HORARIO
+                </div>
+                <hr id="raya">
+                <div class="icon" align="center"><img src="assets/img/socio_ico_2.png" alt=""></div>
+                <div style="margin-top:10px;">
+                  <p class="description text-center">Lo haces tú.Tú decides qué servicio brindas y cuándo.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 ">
+              <div class="box wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;">
+                <div class="text-center " style="font-size:18px;font-weight:bold;">
+                  CAPACITACIÓN
+                </div>
+                <hr id="raya">
+                <div class="icon" align="center"><img src="assets/img/socio_ico_3.png" alt=""></div>
+                <div style="margin-top:10px;">
+                  <p class="description text-center">Queremos que crezcas con nosotros.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 ">
+              <div class="box wow fadeInRight" style="visibility: visible; animation-name: fadeInRight;">
+                <div class="text-center " style="font-size:18px;font-weight:bold;">
+                  BENEFICIOS
+                </div>
+                <hr id="raya">
+                <div class="icon" align="center"><img src="assets/img/socio_ico_4.png" alt=""></div>
+                <div style="margin-top:10px;">
+                  <p class="description text-center">Ser socio te permitirá acceder a beneficios.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <footer id="footer">
+        <div class="container">
+          <div class="copyright">
+            © Copyright QUICK SERVICE. Todos los derechos reservados.
+          </div>
+
+        </div>
+      </footer>
+      <a href="" class="back-to-top" style="display: inline;"><i class="fa fa-chevron-up"></i></a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="wrapper">
+    <!--<app-side></app-side>-->
+    <div id="content">
+        <app-nav></app-nav>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                    <mat-card>
+                        <mat-card-content>
+                            <form id="regForm" [formGroup]="afilicacionForm">
+                                <h5>Formulario de afiliación</h5>
+                                <mat-horizontal-stepper #stepper linear>
+                                    <mat-step formGroupName="datosContacto"
+                                        [stepControl]="afilicacionForm.get('datosContacto')">
+                                        <ng-template matStepLabel>Datos de contacto</ng-template>
+                                        <app-datos-contacto [regForm]="afilicacionForm"></app-datos-contacto>
+                                    </mat-step>
+                                    <mat-step formGroupName="datosPersonales"
+                                        [stepControl]="afilicacionForm.get('datosPersonales')">
+                                        <ng-template matStepLabel>Datos personales</ng-template>
+                                        <app-datos-personales [regForm]="afilicacionForm">
+                                        </app-datos-personales>
+                                    </mat-step>
+                                    <mat-step formGroupName="datosServicio"
+                                        [stepControl]="afilicacionForm.get('datosServicio')">
+                                        <ng-template matStepLabel>Datos de servicio</ng-template>
+                                        <app-datos-servicio [regForm]="afilicacionForm">
+                                        </app-datos-servicio>
+                                    </mat-step>
+                                </mat-horizontal-stepper>
+                            </form>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>

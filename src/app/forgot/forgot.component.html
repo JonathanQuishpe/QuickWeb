@@ -1,0 +1,60 @@
+<div class="wrapper">
+  <div id="content">
+    <app-nav></app-nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+          <mat-card>
+            <mat-card-content>
+              <form [formGroup]="forgotForm" (ngSubmit)="guardar()">
+                <h5>Olvide mi contraseña</h5>
+                <small>Ingresa tu correo y te enviaremos tu contraseña.</small>
+                <mat-form-field class="full-width-input">
+                  <input matInput placeholder="Correo electrónico" formControlName="email" required type="email">
+                  <mat-error>
+                    Correo electrónico requerido y válido.
+                  </mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary">Reestablecer</button><br>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
+
+<!--<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-center">
+            <h3><i class="fa fa-lock fa-4x"></i></h3>
+            <h2 class="text-center">Olvidaste tu Contraseña?</h2>
+            <p>Puedes reestablecer tu contraseña aquí.</p>
+            <div class="panel-body">
+              <form id="register-form" role="form" autocomplete="off" class="form">
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                    <input id="email" name="email" placeholder="Correo Eléctronico" class="form-control" type="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-lg btn-primary btn-block" type="button" routerLink="/start">Restablecer</button>
+                </div>
+                <input type="hidden" class="hide" name="token" id="token" value="">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>-->

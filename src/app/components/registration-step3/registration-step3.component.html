@@ -1,0 +1,28 @@
+<div *ngIf="formSubmitted">
+  <h4>Details submitted successfully</h4>
+</div>
+<div *ngIf="!formSubmitted">
+  <h4>Los siguientes datos serán enviados, por favor verificar y guardar</h4>
+  <h6>Información Básica</h6>
+  <ul>
+    <li>Alías: {{regForm.get('infoPro').get('alias').value}}</li>
+    <li>Descripción del servicio: {{regForm.get('infoPro').get('descripcion').value}}</li>
+    <li>Celular: {{regForm.get('infoPro').get('celular').value}}</li>
+    <li>Convencional: {{regForm.get('infoPro').get('convencional').value}}</li>
+  </ul>
+  <h6>Horario</h6>
+  <ul>
+    <li>De: {{regForm.get('inforPago').get('hora_min').value}} a: {{regForm.get('inforPago').get('hora_max').value}}
+    </li>
+  </ul>
+  <h6>Pagos y precio</h6>
+  <ul>
+    <li>Precio referencial: De {{regForm.get('inforPago').get('precio_min').value}} a
+      {{regForm.get('inforPago').get('precio_max').value}}</li>
+    <li>Información bancaria: {{regForm.get('inforPago').get('banco').value}} -
+      {{regForm.get('inforPago').get('cuenta').value}}</li>
+  </ul>
+  <button matStepperPrevious class="btn btn-primary">Regresar</button>
+  &nbsp;
+  <button (click)="submit()" class="btn btn-primary">Guardar</button>
+</div>

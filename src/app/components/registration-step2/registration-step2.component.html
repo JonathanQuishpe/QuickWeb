@@ -1,0 +1,39 @@
+<div id="contact-details" [formGroup]="regForm">
+  <h6>Horario de atención</h6><br>
+  <div class="row">
+    <div class="form-group col-md-5" formGroupName="inforPago">
+      <label>Desde*</label>
+      <input type="time" class="form-control" formControlName="hora_min">
+    </div>
+    <div class="form-group col-md-5" formGroupName="inforPago">
+      <label>Hasta*</label>
+      <input type="time" class="form-control" formControlName="hora_max">
+    </div>
+  </div>
+  <h6>Precio Referencial</h6><br>
+  <div class="row">
+    <div class="form-group col-md-5" formGroupName="inforPago">
+      <label>Desde*</label>
+      <input type="text" class="form-control" formControlName="precio_min">
+    </div>
+    <div class="form-group col-md-5" formGroupName="inforPago">
+      <label>Hasta*</label>
+      <input type="text" class="form-control" formControlName="precio_max">
+    </div>
+  </div>
+  <h6>Información Bancaria</h6><br>
+  <div class="row">
+    <div class="form-group col-md-5" formGroupName="inforPago">
+      <label>Banco*</label>
+      <input type="text" class="form-control" formControlName="banco">
+    </div>
+    <div class="form-group col-md-5" formGroupName="inforPago">
+      <label>Cuenta*</label>
+      <input type="text" class="form-control" formControlName="cuenta">
+    </div>
+  </div>
+</div>
+<br />
+<button matStepperPrevious class="btn btn-primary">Regresar</button>
+&nbsp;
+<button matStepperNext (click)="step2Submitted()" class="btn btn-primary">Siguiente</button>

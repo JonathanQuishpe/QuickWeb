@@ -1,0 +1,36 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+mat-card {
+    background-color: #f8f9fa;
+}
+
+#formulario {
+    background-color: #fff;
+    padding-top: 20px;
+}
+
+mat-horizontal-stepper {
+    width: 600px;
+}
+
+.proveedor {
+    padding-bottom: 20px;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 20vw;
+    height: 30vh;
+    border-radius: 50%;
+  }

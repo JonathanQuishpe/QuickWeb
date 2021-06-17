@@ -1,0 +1,227 @@
+<div class="wrapper">
+  <!--<app-side></app-side>-->
+  <div id="content">
+    <app-nav></app-nav>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>ESTADO DE SERVICIOS CONTRATADOS</h4>
+            </div>
+            <div class="card-body">
+              <div class="alert alert-primary" role="alert" *ngIf="size == 0">
+                No tiene servicios contratados.
+              </div>
+              <div class="row" *ngIf="size > 0">
+                <div class="col-sm-3" style="
+                border-style: none solid none none;
+                border-width: 1px;
+            ">
+                  <h5>Filtrar por:</h5>
+                  <mat-label>Estado: </mat-label>
+                  <mat-form-field>
+                    <mat-select (selectionChange)="filtroCiudad(c.value)" #c>
+                      <mat-option *ngFor="let ciudad of ciudades" [value]="ciudad.value">
+                        {{ciudad.texto}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-sm-9">
+                  <div class="row">
+                    <div class="col-sm-4 separador-card"
+                      *ngFor="let item of lista  | filtro:textoBuscar : columna | paginate:page_size:page_number">
+
+                      <mat-card class="example-card">
+                        <div class="{{item.estado}}">
+                          <mat-card-header>
+                            <div mat-card-avatar class="example-header-image"></div>
+                          </mat-card-header>
+                        </div>
+                        <!--<img mat-card-image src="{{SRC}}{{proveedor.imagen}}" width="50px" height="150px">-->
+                        <mat-card-content>
+                          <h6>Profesional</h6>
+                          <p>{{item.nombre_proveedor}}</p>
+                          <p>{{item.fecha}}</p>
+                          <p>{{item.nombre_categoria}}</p>
+                          <p>{{item.estado}}</p>
+                          <div *ngIf="item.calificacion != null && item.estado == 'Finalizado'">
+                            <i *ngFor="let n of estrellas(item.calificacion)" class="fa fa-star"
+                              style="color: orange;"></i>
+                          </div>
+                          <div
+                            *ngIf="item.estado == 'Enviado' || item.estado == 'Rechazado' || item.estado == 'Aprobado'">
+                            <i class="fa fa-star" style="color: gray;"></i>
+                            <i class="fa fa-star" style="color: gray;"></i>
+                            <i class="fa fa-star" style="color: gray;"></i>
+                            <i class="fa fa-star" style="color: gray;"></i>
+                            <i class="fa fa-star" style="color: gray;"></i>
+                          </div>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block"
+                            (click)="openModal(mapa,item.id_contrato)" *ngIf="'mapa' as name">
+                            <mat-icon title="Ver Mapa">location_on</mat-icon>Ver ubicación
+                          </button>
+                          <button type="button" class="btn btn-info btn-lg btn-block"
+                            (click)="openModal(detalles,item.id_contrato)">Ver
+                            Detalles</button>
+                          <button *ngIf="item.estado == 'Finalizado' && item.calificacion == null"
+                            class="btn btn-primary btn-lg btn-block" (click)="openModal(calificar,item.id_contrato)"><i
+                              class="fa fa-user"></i>&nbsp;
+                            Calificar</button>
+                        </mat-card-actions>
+                      </mat-card>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                  <mat-paginator [length]="lista.length" [pageSize]="page_size" (page)="pageEvent($event)">
+                  </mat-paginator>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Modal Calificación-->
+<ng-template #calificar>
+  <div class="modal-header">
+    <h5 class="modal-title">Calificar Servicio</h5>
+  </div>
+  <form [formGroup]="calificarForm" (ngSubmit)="guardarCalificacion()">
+    <div class="modal-body">
+      <input type="hidden" value="{{id_contrato}}" formControlName="id_contrato">
+      <input type="hidden" value="{{calificacion}}" formControlName="valor">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <div class="form-group input-group-prepend" class="center">
+              <div class="clasificacion">
+                <input #r5 (click)="valor(r5.value)" id="radio5" type="radio" name="estrellas" value="5"><label
+                  for="radio5">★</label>
+                <input #r4 (click)="valor(r4.value)" id="radio4" type="radio" name="estrellas" value="4"><label
+                  for="radio4">★</label>
+                <input #r3 (click)="valor(r3.value)" id="radio3" type="radio" name="estrellas" value="3"><label
+                  for="radio3">★</label>
+                <input #r2 (click)="valor(r2.value)" id="radio2" type="radio" name="estrellas" value="2"><label
+                  for="radio2">★</label>
+                <input #r1 (click)="valor(r1.value)" id="radio1" type="radio" name="estrellas" value="1"><label
+                  for="radio1">★</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label>Comentario: </label>
+            <textarea class="form-control" formControlName="comentario">
+              </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Cerrar</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</ng-template>
+<ng-template #mapa>
+  <div class="modal-header">
+    <h5 class="modal-title">Detalle de dirección</h5>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <agm-map [latitude]="lat" [longitude]="lon" [zoom]="15">
+            <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
+          </agm-map>
+        </div>
+      </div>
+      <div class="col-12">
+        <br>
+        <p><strong>Referencia: </strong>{{referencia}}</p>
+      </div>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Cerrar</button>
+  </div>
+</ng-template>
+<ng-template #detalles>
+  <div class="modal-header">
+    <h5 class="modal-title">Detalles del servicio</h5>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-4 col-avatar">
+          <img src="{{SRC}}{{objDetalles.imagen}}" alt="Avatar" class="avatar" *ngIf="objDetalles.imagen !== 'S/N'">
+          <img src="{{SRC}}/default.png" alt="Avatar" class="avatar" *ngIf="objDetalles.imagen == 'S/N'">
+        </div>
+        <div class="col-sm-8">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Proveedor:</label>
+                <input type="text" class="form-control form-control-sm" readonly
+                  value="{{objDetalles.nombre_proveedor}}">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Teléfono:</label>
+                <input type="text" class="form-control form-control-sm" readonly value="{{objDetalles.convencional}}">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Celular:</label>
+                <input type="text" class="form-control form-control-sm" readonly value="{{objDetalles.celular}}">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Fecha:</label>
+                <input type="text" class="form-control form-control-sm" readonly value="{{objDetalles.fecha}}">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label>Hora:</label>
+                <input type="text" class="form-control form-control-sm" readonly value="{{objDetalles.hora}}">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Descripción del servicio:</label>
+                <textarea class="form-control form-control-sm" readonly value="{{objDetalles.descripcion}}"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Comentario:</label>
+                <textarea class="form-control form-control-sm" readonly value="{{objDetalles.comentarios}}"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="modalRef.hide()">Cerrar</button>
+  </div>
+</ng-template>

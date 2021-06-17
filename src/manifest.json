@@ -1,0 +1,10 @@
+{
+  "short_name": "QuickService",
+  "name": "QuickService",
+  "theme_color": "#FFC72C",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "gcm_sender_id": "837047116674"
+}

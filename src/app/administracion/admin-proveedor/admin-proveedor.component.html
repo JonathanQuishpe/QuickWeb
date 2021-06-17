@@ -1,0 +1,176 @@
+<app-menu></app-menu>
+<br>
+<div id="content">
+    <div class="container-fluid">
+        <h2>Profesionales</h2>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#lista" role="tab" aria-controls="home"
+                    aria-selected="true">Lista</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#agregar" role="tab"
+                    aria-controls="profile" aria-selected="false">Activar</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="lista" role="tabpanel" aria-labelledby="home-tab">
+                <mat-form-field>
+                    <mat-label>Filtro</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese algún texto" autocomplete="off">
+                </mat-form-field>
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef> Nombres</th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombres}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="direccion">
+                        <th mat-header-cell *matHeaderCellDef>Direccion</th>
+                        <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="celular">
+                        <th mat-header-cell *matHeaderCellDef> Celular</th>
+                        <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="calificacion">
+                        <th mat-header-cell *matHeaderCellDef> Calificación </th>
+                        <td mat-cell *matCellDef="let element"> {{element.calificacion}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef> Estado </th>
+                        <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="acciones">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngIf="element.estado == 'activo'">
+                                <i title="Borrar" class="fa fa-trash" (click)="borrar(element.id)"></i>
+                            </div>
+                            <div *ngIf="element.estado == 'inactivo'">
+                                <i title="Activar" class="fa fa-check" (click)="activar(element.id)"></i>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                <!--<div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Celular</th>
+                                <th>Descripción</th>
+                                <th>Calificación</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let proveedor of proveedores">
+                                <td>{{proveedor.nombres}} {{proveedor.apellidos}}</td>
+                                <td>{{proveedor.direccion}}</td>
+                                <td>{{proveedor.celular}}</td>
+                                <td>{{proveedor.descripcion}}</td>
+                                <td>{{proveedor.calificacion}}</td>
+                                <td>{{proveedor.estado}}</td>
+                                <td>
+                                    <div *ngIf="proveedor.estado == 'activo'">
+                                        <i title="Borrar" class="fa fa-trash" (click)="borrar(proveedor.id)"></i>
+                                    </div>
+                                    <div *ngIf="proveedor.estado == 'inactivo'">
+                                        <i title="Activar" class="fa fa-check" (click)="activar(proveedor.id)"></i>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>-->
+            </div>
+            <div class="tab-pane fade" id="agregar" role="tabpanel" aria-labelledby="profile-tab">
+                <nb-card>
+                    <nb-card-header>
+                        <h5>Activar Profesional</h5>
+                    </nb-card-header>
+                    <nb-card-body>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6" style="
+                            border-style: none solid none none;
+                            border-width: 1px;
+                        ">
+                                <form [formGroup]="proveedorForm" (ngSubmit)="guardar()">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Profesionales </label>
+                                            <select class="form-control col-4" formControlName="id_proveedor" #c
+                                                (change)="cargar(c.value)">
+                                                <option *ngFor="let pendiente of pendientesLista"
+                                                    value="{{pendiente.id}}">
+                                                    {{pendiente.nombres}} {{pendiente.apellidos}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Categoría: </label>
+                                            <select class="form-control col-4" formControlName="id_categoria">
+                                                <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                                                    {{categoria.nombre}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-block">Activar</button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Información</h6>
+                                <mat-list *ngFor="let datos of data">
+                                    <div mat-subheader>Nombre completo</div>
+                                    <mat-list-item>
+                                        <div mat-line>{{datos.nombres}} {{datos.apellidos}}</div>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <div mat-subheader>Categoria</div>
+                                    <mat-list-item>
+                                        <div mat-line *ngIf="datos.categoria !== null">{{datos.categoria}}</div>
+                                        <div mat-line *ngIf="datos.categoria === null">
+                                            <button mat-raised-button color="warn"
+                                                [routerLink]="['/administracion/categoria']">Crear</button>
+                                        </div>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <div mat-subheader>Descripción del servico</div>
+                                    <mat-list-item>
+                                        <div mat-line>{{datos.descripcion}}</div>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <div mat-subheader>Dirección</div>
+                                    <mat-list-item>
+                                        <div mat-line>{{datos.direccion}}</div>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                    <div mat-subheader>Documento</div>
+                                    <mat-list-item>
+                                        <mat-icon mat-list-icon>folder</mat-icon>
+                                        <div mat-line><a href="{{DOC}}{{datos.imagen}}"
+                                                target="_blank">{{datos.imagen}}</a></div>
+                                    </mat-list-item>
+                                </mat-list>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+    </div>
+</div>

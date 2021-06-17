@@ -1,0 +1,64 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+.card-header {
+    background-color: #7386D5;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.modal-header {
+    background-color: #c0c9d0;
+}
+
+agm-map {
+    height: 250px;
+    width: 100%;
+}
+
+.modal-body {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.Finalizado>mat-card-header>.example-header-image {
+    background-color: #17a2b8;
+}
+
+.Rechazado>mat-card-header>.example-header-image {
+    background-color: #f44336;
+}
+
+.Enviado>mat-card-header>.example-header-image {
+    background-color: skyblue;
+}
+
+.Aprobado>mat-card-header>.example-header-image {
+    background-color: #2fb12fb8;
+}
+
+.separador-card {
+    padding-bottom: 1px;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 20vw;
+    height: 30vh;
+    border-radius: 50%;
+  }
+
+.col-avatar {
+    text-align: center;
+  }

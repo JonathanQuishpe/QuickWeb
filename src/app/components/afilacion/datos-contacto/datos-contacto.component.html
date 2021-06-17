@@ -1,0 +1,34 @@
+<div id="personal-details" [formGroup]="regForm">
+    <mat-form-field class="full-width-input" formGroupName="datosContacto">
+        <input matInput placeholder="Nombres" formControlName="nombres" required type="text" letterOnly>
+        <mat-error>
+            Nombres requeridos
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input" formGroupName="datosContacto">
+        <input matInput placeholder="Apellidos" formControlName="apellidos" required type="text" letterOnly>
+        <mat-error>
+            Apellidos requeridos
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input" formGroupName="datosContacto">
+        <input matInput placeholder="Celular" formControlName="celular" required type="tel" numbersOnly maxlength="10"
+            minlength="10">
+        <mat-error>
+            Celular requerido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input" formGroupName="datosContacto">
+        <input matInput placeholder="Convencional" formControlName="convencional" required type="tel" numbersOnly
+            maxlength="7" minlength="7">
+        <mat-error>
+            Convencional requerido
+        </mat-error>
+    </mat-form-field>
+    <div class="full-width-input" formGroupName="datosContacto">
+        <label>Documento (Tipo: PDF - Tamaño Máx: 2 Mb)*</label><br>
+        <input type="file" formControlName="imagen" (change)="imageSelected($event)" class="mat-form-field ">
+    </div>
+</div>
+<br />
+<button matStepperNext (click)="step1Submitted()" class="btn btn-primary">Siguiente</button>

@@ -1,0 +1,144 @@
+<app-menu></app-menu>
+<br>
+<div id="content">
+  <div class="container-fluid">
+    <h2>Categorías</h2>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#lista" role="tab" aria-controls="home"
+          aria-selected="true">Lista</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#agregar" role="tab" aria-controls="profile"
+          aria-selected="false">Ingresar</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="lista" role="tabpanel" aria-labelledby="home-tab">
+        <mat-form-field>
+          <mat-label>Filtro</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese algún texto" autocomplete="off">
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombres</th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+          <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef>Descripción</th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+          </ng-container>
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado</th>
+            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+          </ng-container>
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <i title="Borrar" class="fa fa-trash" (click)="borrar(element.id)"></i>&nbsp;
+              <i title="Editar" class="fa fa-pencil" (click)="openModal(template,element.id)"></i>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+      <div class="tab-pane fade" id="agregar" role="tabpanel" aria-labelledby="profile-tab">
+        <nb-card>
+          <nb-card-header>
+            <h5>Agregar Categoría</h5>
+          </nb-card-header>
+          <nb-card-body><br>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <form [formGroup]="categoriaForm" (ngSubmit)="guardar()">
+                  <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" placeholder="Ingrese nombre" formControlName="nombre">
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="categoriaForm.get('nombre').hasError('required') && categoriaForm.get('nombre').touched">
+                      Nombre requerido
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Descripción</label>
+                    <input type="text" class="form-control" placeholder="Ingrese descripción"
+                      formControlName="descripcion">
+                    <div class="alert alert-danger" role="alert"
+                      *ngIf="categoriaForm.get('descripcion').hasError('required') && categoriaForm.get('descripcion').touched">
+                      Descripción requerida
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                </form>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </nb-card-body>
+        </nb-card>
+        <!--<form [formGroup]="categoriaForm" (ngSubmit)="guardar()">
+          <h5 align="center">Agregar Categoría</h5><br>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <div class="form-group input-group-prepend">
+                  <label class="col-4">Nombre: </label>
+                  <input type="text" class="form-control col-8" placeholder="Nombres" formControlName="nombre">
+                </div>
+                <div class="alert alert-danger" role="alert"
+                  *ngIf="categoriaForm.get('nombre').hasError('required') && categoriaForm.get('nombre').touched">
+                  Nombre requerido
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <div class="form-group input-group-prepend">
+                  <label class="col-4">Descripción: </label>
+                  <input type="text" class="form-control col-8" placeholder="Descripción" formControlName="descripcion">
+                </div>
+              </div>
+              <div class="alert alert-danger" role="alert"
+                *ngIf="categoriaForm.get('descripcion').hasError('required') && categoriaForm.get('descripcion').touched">
+                Descripción requerida
+              </div>
+            </div>
+          </div>
+          <div class="float-right">
+            <button type="submit" class="btn btn-success">Guardar</button>
+          </div>
+        </form>-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #template>
+  <div class="modal-body">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Actualizar Categoría</h5>
+    </div>
+    <mat-card class="example-card">
+      <mat-card-content>
+        <form [formGroup]="categoriaUpdate" (ngSubmit)="actualizar()">
+          <input type="hidden" class="form-control" formControlName="id">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre">
+          </div>
+          <div class="form-group">
+            <label>Descripcion</label>
+            <input type="text" class="form-control" formControlName="descripcion">
+          </div>
+          <button type="submit" class="btn btn-primary">Actualizar</button>&nbsp;
+          <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cerrar</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-template>

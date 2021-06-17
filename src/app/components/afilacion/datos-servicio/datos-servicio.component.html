@@ -1,0 +1,21 @@
+<div id="personal-details" [formGroup]="regForm">
+    <mat-form-field class="example-full-width" formGroupName="datosServicio">
+        <mat-label>Categoría</mat-label>
+        <select formControlName="categoria" matNativeControl>
+            <option *ngFor="let categoria of categorias" value="{{categoria.id}}">{{categoria.nombre}}
+            </option>
+            <option value="0">Otra
+            </option>
+        </select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" formGroupName="datosServicio">
+        <mat-label>Descripción del servicio que prestas</mat-label>
+        <textarea matInput formControlName="descripcion"></textarea>
+        <mat-error>
+            Descripción requerida
+        </mat-error>
+    </mat-form-field>
+</div>
+<br />
+<button matStepperPrevious class="btn btn-primary">Regresar</button>&nbsp;
+<button matStepperNext (click)="submit()" class="btn btn-primary">Guardar</button>

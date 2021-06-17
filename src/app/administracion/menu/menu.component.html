@@ -1,0 +1,41 @@
+<!--<nb-layout-header>
+  <div class="row">
+    <div class="col-1-sm alert" role="alert" routerLink="/administracion/menu">
+      <h6>Panel de Administración Quick Service</h6>
+    </div>
+  </div>
+  <ul class="nav navbar-nav ml-auto navbar-expand-lg">
+    <li class="nav-item">
+      <a mat-button routerLink="/administracion/proveedor">Proveedores</a>
+    </li>
+    <li class="nav-item">
+      <a mat-button routerLink="/administracion/categoria">Categorias</a>
+    </li>
+    <li class="nav-item">
+      <a mat-button routerLink="/administracion/asignar">Agregar Nivel</a>
+    </li>
+    <li class="nav-item">
+      <a mat-button (click)="cerrar_sesion()">Cerrar Sesión</a>
+    </li>
+  </ul>
+</nb-layout-header>-->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand">
+    <img src="assets/img/icono/logo.png" height="28" alt="Quick Service">
+  </a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+    <div class="navbar-nav">
+      <a class="nav-link" routerLink="/administracion/proveedor">Profesionales</a>
+      <a class="nav-link" routerLink="/administracion/categoria">Categorias</a>
+      <a class="nav-link" routerLink="/administracion/asignar">Agregar Nivel</a>
+      <a class="nav-link" routerLink="/administracion/configuracion">LandScape</a>
+    </div>
+    <div class="navbar-nav">
+      <a class="nav-link" (click)="cerrar_sesion()">Cerrar Sesión</a>
+    </div>
+  </div>
+</nav>

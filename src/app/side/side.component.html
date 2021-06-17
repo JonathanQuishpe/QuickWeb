@@ -1,0 +1,48 @@
+<nav id="sidebar" class="active">
+  <div class="sidebar-header">
+    <a routerLink="/" *ngIf="sesion == null">
+      <h3>Quick Service</h3>
+    </a>
+    <a routerLink="/home" *ngIf="sesion != null">
+      <h3>Quick Service</h3>
+    </a>
+  </div>
+  <ul class="list-unstyled components">
+    <li class="active">
+      <a routerLink="/" *ngIf="sesion == null">
+        <h4>Home</h4>
+      </a>
+      <a routerLink="/home" *ngIf="sesion != null">
+        <h4>Home</h4>
+      </a>
+    </li>
+    <li class="active" *ngIf="sesion != null">
+      <a href="#SubmenuOpciones" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Servicios
+        <span class="badge badge-light cantidad_servicios">{{n_servicios}}</span>
+      </a>
+      <ul class="collapse list-unstyled" id="SubmenuOpciones">
+        <li>
+          <a routerLink="/estado">Estado</a>
+        </li>
+      </ul>
+    </li>
+    <li class="active">
+      <a href="#SubmenuCategorias" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Categorias</a>
+      <ul class="collapse list-unstyled" id="SubmenuCategorias">
+        <li *ngFor="let categoria of categorias">
+          <a (click)="onSelected(categoria)">{{categoria.nombre}}</a>
+        </li>
+      </ul>
+    </li>
+    <li class="active" *ngIf="sesion != null && rol == 2">
+      <a href="#SubmenuProveedor" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Proveedor
+        <span class="badge badge-light cantidad_servicios">{{n_contratos}}</span>
+      </a>
+      <ul class="collapse list-unstyled" id="SubmenuProveedor">
+        <li>
+          <a routerLink="/aprobar">Contratos</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

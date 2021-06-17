@@ -1,0 +1,37 @@
+<div id="personal-details" [formGroup]="regForm">
+    <mat-form-field class="full-width-input" formGroupName="datosPersonales">
+        <input matInput placeholder="Ciudad" formControlName="ciudad" required type="text">
+        <mat-error>
+            Ciudad requerida
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input" formGroupName="datosPersonales">
+        <input matInput placeholder="Barrio" formControlName="barrio" required type="text">
+        <mat-error>
+            Barrio requerido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input" formGroupName="datosPersonales">
+        <mat-label>Sector</mat-label>
+        <select matNativeControl required formControlName="sector">
+            <option value="Norte">Norte
+            </option>
+            <option value="Sur">Sur
+            </option>
+            <option value="Centro">Centro
+            </option>
+        </select>
+        <mat-error>
+            Sector requerido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input" formGroupName="datosPersonales">
+        <input matInput placeholder="Correo" formControlName="correo" required type="email">
+        <mat-error>
+            Correo requerido
+        </mat-error>
+    </mat-form-field>
+</div>
+<br />
+<button matStepperPrevious class="btn btn-primary">Regresar</button>&nbsp;
+<button matStepperNext (click)="step2Submitted()" class="btn btn-primary">Siguiente</button>

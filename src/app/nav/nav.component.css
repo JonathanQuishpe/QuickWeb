@@ -1,0 +1,31 @@
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 20px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+.filter-select{
+    position: absolute;
+    z-index: 3;
+    width: 52%;
+    list-style: none;
+    font-size: 1.1em;
+    color: rgb(105, 105, 105);
+    /*border: 1px solid #ccc;*/
+    border-top: none;
+
+    /*left: 52%;
+    top: calc(50% + 25px);
+    max-height: calc(50% - 15px);*/
+    overflow-y: auto;
+    background: #fff
+}

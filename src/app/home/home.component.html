@@ -1,0 +1,399 @@
+<div class="wrapper">
+    <!--<app-side></app-side>-->
+    <div id="content">
+        <app-nav></app-nav>
+        <div class="container-fluid">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#perfil" role="tab"
+                        aria-controls="profile" aria-selected="false">Perfil</a>
+                </li>
+                <li class="nav-item" *ngIf="proveedor > 0">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#proveedor" role="tab"
+                        aria-controls="contact" aria-selected="false">Servicios</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="perfil" role="tabpanel" aria-labelledby="profile-tab">
+                    <br>
+                    <h5 align="center">Información del usuario</h5>
+                    <br>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-12">
+                            <figure>
+                                <img src="{{SRC}}{{profile}}" alt="Foto" class="avatar">
+                            </figure>
+                            <input type="file" id=" file" name="file" (change)="imageSelected($event)">
+                            <button class="btn btn-primary" type="button" (click)="upload()">Subir</button>
+                        </div>
+                    </div><br>
+                    <form [formGroup]="userForm" (ngSubmit)="save()">
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <div class="form-group input-group-prepend">
+                                        <label class="col-4">Nombres: </label>
+                                        <input type="text" class="form-control col-8" formControlName="names"
+                                            letterOnly>
+                                    </div>
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                    *ngIf="userForm.get('names').hasError('required') && userForm.get('names').touched">
+                                    Nombres requeridos
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <div class="form-group input-group-prepend">
+                                        <label class="col-4">Apellidos: </label>
+                                        <input type="text" class="form-control col-8" formControlName="lastnames"
+                                            letterOnly>
+                                    </div>
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                    *ngIf="userForm.get('lastnames').hasError('required') && userForm.get('lastnames').touched">
+                                    Apellidos requeridos
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <div class="form-group input-group-prepend">
+                                        <label class="col-4">Correo electrónico: </label>
+                                        <input type="text" class="form-control col-8" formControlName="email" readonly>
+                                    </div>
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                    *ngIf="userForm.get('email').hasError('required') && userForm.get('email').touched">
+                                    Email requerido
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <div class="form-group input-group-prepend">
+                                        <label class="col-4">Usuario: </label>
+                                        <input type="text" class="form-control col-8" formControlName="user">
+                                    </div>
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                    *ngIf="userForm.get('user').hasError('required') && userForm.get('user').touched">
+                                    Usuario requerido
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="form-group">
+                                    <div class="form-group input-group-prepend">
+                                        <label class="col-4">Contraseña: </label>
+                                        <input type="password" class="form-control col-8" formControlName="password"
+                                            id="password">
+                                        <span toggle="#password-field" onclick="return pass();"
+                                            class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                    </div>
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                    *ngIf="userForm.get('password').hasError('required') && userForm.get('password').touched">
+                                    Contraseña requerida
+                                </div>
+                            </div>
+                            <!--<div class="col-10">
+                                <div class="form-group">
+                                    <div class="form-group input-group-prepend">
+                                        <label class="col-4">
+                                            <figure>
+                                                <img src="{{SRC}}{{profile}}" alt="Trulli" style="width:30%">
+                                            </figure>
+                                        </label>
+                                        <input type="file" class="form-control col-8" id="file" name="file"
+                                            formControlName="imagen" (change)="imageSelected($event)">
+                                    </div>
+                                </div>
+                                <div class="alert alert-danger" role="alert"
+                                    *ngIf="userForm.get('imagen').hasError('required') && userForm.get('imagen').touched">
+                                    Imagen requerida
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-success"
+                                [disabled]="userForm.invalid">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="proveedor" role="tabpanel" aria-labelledby="contact-tab">
+                    <div *ngIf="proveedor > 0">
+                        <br>
+                        <h5 align="center">Información del profesional</h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <mat-label>Categoria: </mat-label>
+                                    <mat-form-field>
+                                        <mat-select #c (selectionChange)="cargar(c.value)">
+                                            <mat-option [value]="0">
+                                                ----Seleccione
+                                            </mat-option>
+                                            <mat-option *ngFor="let categoria of lista" [value]="categoria.id">
+                                                {{categoria.nombre}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" [style.display]="showData">
+                            <div class="col-md-12">
+                                <div class="row" id="formulario" *ngFor="let for of formulario">
+                                    <div class="col-12">
+                                        <div class="float-right">
+                                            <button (click)="editar()" mat-raised-button color="primary">
+                                                <mat-icon matBadgeColor="primary" title="Editar">
+                                                    create
+                                                </mat-icon>
+                                                Editar
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Alias: </label>
+                                                <input type="text" class="form-control col-8" value="{{for.alias}}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6"></div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Celular: </label>
+                                                <input type="text" class="form-control col-8" value="{{for.celular}}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Convencional: </label>
+                                                <input type="text" class="form-control col-8"
+                                                    value="{{for.convencional}}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Banco: </label>
+                                                <input type="text" class="form-control col-8" value="{{for.banco}}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Cuenta: </label>
+                                                <input type="text" class="form-control col-8" value="{{for.cuenta}}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Precio: </label>
+                                                <input type="text" class="form-control col-8" value="{{for.precio}}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6"></div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Hora Inicio: </label>
+                                                <input type="time" class="form-control col-8" value="{{for.hora_min}}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Hora Fin: </label>
+                                                <input type="time" class="form-control col-8" value="{{for.hora_max}}"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="form-group">
+                                            <div class="form-group input-group-prepend">
+                                                <label class="col-4">Descripción servicio: </label>
+                                                <textarea type="text" class="form-control col-8" rows="5"
+                                                    value="{{for.descripcion}}" readonly></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container" [style.display]="showForm">
+                            <div class="row justify-content-center">
+                                <!--<div class="col-12 align-self-end text-center">
+                                    <button (click)="cancelar()" mat-raised-button color="warn">
+                                        <mat-icon matBadgeColor="primary" title="Editar">
+                                            clear
+                                        </mat-icon>
+                                        Cancelar
+                                    </button>
+                                </div><br>-->
+                                <form id="regForm" [formGroup]="registrationForm">
+                                    <mat-horizontal-stepper #stepper linear>
+                                        <mat-step formGroupName="infoPro"
+                                            [stepControl]="registrationForm.get('infoPro')">
+                                            <ng-template matStepLabel>Informacion Básica</ng-template>
+                                            <app-registration-step1 [regForm]="registrationForm">
+                                            </app-registration-step1>
+                                        </mat-step>
+                                        <mat-step formGroupName="inforPago"
+                                            [stepControl]="registrationForm.get('inforPago')">
+                                            <ng-template matStepLabel>Horario y Pago</ng-template>
+                                            <app-registration-step2 [regForm]="registrationForm">
+                                            </app-registration-step2>
+                                        </mat-step>
+                                        <mat-step>
+                                            <ng-template matStepLabel>Confirmar Cambios</ng-template>
+                                            <app-registration-step3 [regForm]="registrationForm">
+                                            </app-registration-step3>
+                                        </mat-step>
+                                    </mat-horizontal-stepper>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!--<form [formGroup]="proveedorForm" (ngSubmit)="saveProveedor()">
+                            <div class="row">
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Nombre: </label>
+                                            <input type="text" class="form-control col-8" formControlName="nombres">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('nombres').hasError('required') && proveedorForm.get('nombres').touched">
+                                        Nombre requerido
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Celular: </label>
+                                            <input type="text" class="form-control col-8" formControlName="celular">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('celular').hasError('required') && proveedorForm.get('celular').touched">
+                                        Celular requerido
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Descripción servicio: </label>
+                                            <textarea type="text" class="form-control col-8"
+                                                formControlName="descripcion" rows="5">
+                                                </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('descripcion').hasError('required') && proveedorForm.get('descripcion').touched">
+                                        Descripción requerida
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Banco: </label>
+                                            <input type="text" class="form-control col-8" formControlName="banco">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('banco').hasError('required') && proveedorForm.get('banco').touched">
+                                        Banco requerido
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Cuenta: </label>
+                                            <input type="text" class="form-control col-8" formControlName="cuenta">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('cuenta').hasError('required') && proveedorForm.get('cuenta').touched">
+                                        Cuenta requerida
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Precio: </label>
+                                            <input type="text" class="form-control col-8" formControlName="precio">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('precio').hasError('required') && proveedorForm.get('precio').touched">
+                                        Precio requerido
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Hora Inicio: </label>
+                                            <input type="time" class="form-control col-8" formControlName="h_in">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('h_in').hasError('required') && proveedorForm.get('h_in').touched">
+                                        Hora inicio requerida
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Hora Fin: </label>
+                                            <input type="time" class="form-control col-8" formControlName="h_out">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('h_out').hasError('required') && proveedorForm.get('h_out').touched">
+                                        Hora fin requerida
+                                    </div>
+                                </div>
+                                <div class="col-10">
+                                    <div class="form-group">
+                                        <div class="form-group input-group-prepend">
+                                            <label class="col-4">Imagen: </label>
+                                            <input type="file" class="form-control form-control-sm validate"
+                                                formControlName="imagen" (change)="imageSelected($event)">
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" role="alert"
+                                        *ngIf="proveedorForm.get('imagen').hasError('required') && proveedorForm.get('imagen').touched">
+                                        Imagen requerida
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="float-right">
+                                <button type="submit" class="btn btn-success"
+                                    [disabled]="proveedorForm.invalid">Actualizar</button>
+                            </div>
+                        </form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

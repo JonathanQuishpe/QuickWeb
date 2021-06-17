@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand">
+    <img src="assets/img/icono/logo.png" height="28" alt="Quick Service">
+  </a>
+  <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+    <div class="navbar-nav">
+      <div>
+        <a class="nav-link" mat-button routerLink="/" *ngIf="sesion == null">
+          Inicio
+        </a>
+        <a class="nav-link" mat-button href="/landscape#servicios" *ngIf="sesion == null && ruta == '/landscape'">
+          Como funciona
+        </a>
+        <a class="nav-link" mat-button href="/landscape#socio" *ngIf="sesion == null && ruta == '/landscape'">
+          Quieres ser socio
+        </a>
+        <a class="nav-link" mat-button href="/landscape#about" *ngIf="sesion == null && ruta == '/landscape'">
+          App
+        </a>
+        <a class="nav-link" mat-button routerLink="/home" *ngIf="sesion != null">
+          Inicio
+        </a>
+      </div>
+      <div *ngIf="sesion != null">
+        <a class="nav-link" mat-button routerLink="/estado">
+          Servicios
+          <mat-icon matBadge="{{n_servicios}}" matBadgeColor="primary">add_alert</mat-icon>
+        </a>
+      </div>
+      <div *ngIf="sesion != null && rol == 2">
+        <a class="nav-link" mat-button routerLink="/aprobar">
+          Contratos
+          <mat-icon matBadge="{{n_contratos}}" matBadgeColor="primary">add_alert</mat-icon>
+        </a>
+      </div>
+      <!--<div>
+        <a *ngFor="let categoria of categorias" mat-button (click)="onSelected(categoria)">{{categoria.nombre}}</a>
+      </div>-->
+      <!--<div class="nav-item dropdown navbar-toggler">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categorias</a>
+        <div class="dropdown-menu">
+          <a *ngFor="let categoria of categorias" mat-button (click)="onSelected(categoria)">{{categoria.nombre}}</a>
+        </div>
+      </div>-->
+    </div>
+    <div class="navbar-nav">
+      <div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" (change)="onSelected(c.value)" #c>
+              <option *ngFor="let categoria of categorias" value="{{categoria.id}}">
+                {{categoria.nombre}}</option>
+              <option value="all">Todas</option>
+            </select>
+          </div>
+          <section>
+            <div class="input-group-prepend">
+              <input type="text" class="form-control" id="keyword" placeholder="Buscar categoria..."
+                [formControl]="queryField" />
+              <button class="btn btn-success" type="button">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+            <div class="filter-select list-group">
+              <li class="list-group-item" *ngFor="let result of results" (click)="buscador(result)">
+                {{result.nombre}}
+              </li>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-nav">
+      <button *ngIf="sesion == null" class="btn btn-success" type="button" [routerLink]="['/login']"><i
+          class="fa fa-sign-in"></i>&nbsp;
+        Iniciar Sesión</button>
+      <button *ngIf="sesion != null" class="btn btn-danger" type="button" (click)="logout()"><i
+          class="fa fa-sign-out"></i>&nbsp;
+        Cerrar Sesión</button>
+    </div>
+  </div>
+</nav>
